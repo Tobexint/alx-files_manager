@@ -4,7 +4,7 @@ import redisClient from '../utils/redis';
 import { ObjectId } from 'mongodb';
 import sha1 from 'sha1';
 
-class Users {
+class UsersController {
   static async postNew(req, res) {
     const { email } = req.body;
     const { password } = req.body;
@@ -35,4 +35,4 @@ class Users {
     });
   }
 
-module.exports = Users;
+module.exports = UsersController;
