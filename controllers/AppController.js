@@ -1,16 +1,21 @@
+/* Controller APIs */
 import redisClient from '../utils/redis';
 import dbClient from '../utils/db';
 
-export const getStatus(req, res) {
-  res.status(200).send({
-    redis: redisClient.isAlive(),
-    db: dbClient.isAlive(),
-  });
+class Controller {
+  static getStatus(req, res) {
+    res.status(200).send({
+      redis: redisClient.isAlive(),
+      db: dbClient.isAlive(),
+    });
+  }
+
+  static async getStats(req, res) {
+    res.status(200).send({
+      users: await dbClient.nbUsers(),
+      files: await dbClient.nbFiles(),
+    });
+  }
 }
 
-export const getStats(req, res) = async() => {
-  res.status(200).send({
-    users: await dbClient.nbUsers(),
-    files: await dbClient.nbFiles(),
-  });
-}
+module.exports = Controller;
